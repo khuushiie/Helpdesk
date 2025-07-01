@@ -1,0 +1,28 @@
+.signin-container {
+  background-color: #55D6C2;
+  min-height: 100vh;
+}
+
+.signin-card {
+  background-color: #a9e3de;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.signin-input {
+  border: 1px solid #000;
+}
+
+.signin-button {
+  background-color: #00cc33;
+  color: white;
+  width: 60%;
+  border-radius: 10px;
+}
+
+.signin-link {
+  text-decoration: none;
+  font-size: 0.875rem;
+}
