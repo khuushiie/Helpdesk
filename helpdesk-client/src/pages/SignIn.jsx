@@ -1,4 +1,5 @@
-import '../styles/SignIn.css';
+import { Link } from 'react-router-dom';
+import '../styles/signin.css';
 
 function SignIn() {
   return (
@@ -32,12 +33,10 @@ function SignIn() {
           </div>
 
           <div className="d-flex justify-content-between mt-2 px-1">
-            <a href="#" className="text-danger signin-link">
-              Forgot password
-            </a>
-            <a href="#" className="text-dark signin-link">
-              Sign Up
-            </a>
+
+            <Link to="/forgot-password" className="text-danger signin-link">Forgot password</Link>
+
+            <Link to="/signup" className="text-dark signin-link">Sign Up</Link>
           </div>
         </form>
       </div>
@@ -46,5 +45,3 @@ function SignIn() {
 }
 
 export default SignIn;
-
-
