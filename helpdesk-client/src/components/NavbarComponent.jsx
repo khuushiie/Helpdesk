@@ -10,7 +10,7 @@ const NavbarComponent = () => {
         <p className='bm-bi'><span className="bm">BM</span><span className="bi ">BI</span></p>
         <i className="fa-solid fa-bell icon"></i>
         <Link to="/profile"><i className="fa-solid fa-user icon"></i></Link>
-        <i className="fa-solid fa-right-from-bracket icon"></i>
+        <Link to="/"><i className="fa-solid fa-right-from-bracket icon"></i></Link>
       </div>
     </nav>
   );

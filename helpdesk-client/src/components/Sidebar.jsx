@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/sidebar.css';
 
 const Sidebar = () => {
-  const role = localStorage.getItem('role'); // 'admin', 'technical', 'operation'
+  const [role, setRole] = useState(null);
   const [showUserSubmenu, setShowUserSubmenu] = useState(false);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    if (storedRole) {
+      setRole(storedRole.toLowerCase());
+    }
+  }, []);
 
   const toggleUserSubmenu = () => setShowUserSubmenu(!showUserSubmenu);
 
@@ -19,7 +26,23 @@ const Sidebar = () => {
           </Link>
         </li>
 
-        {/* Technical Support Role */}
+        {/* User */}
+        {role === 'user' && (
+          <>
+            <li>
+              <Link to="/tickets" className="sidebar-link fs-4">
+                <i className="fa-solid fa-ticket"></i> &nbsp; My Tickets
+              </Link>
+            </li>
+            <li>
+              <Link to="/newticket" className="sidebar-link fs-4">
+                <i className="fa-solid fa-file-circle-plus"></i> &nbsp; New Ticket
+              </Link>
+            </li>
+          </>
+        )}
+
+        {/* Technical Support */}
         {role === 'technical' && (
           <>
             <li>
@@ -35,7 +58,7 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* Operation Role */}
+        {/* Operation Team */}
         {role === 'operation' && (
           <>
             <li>
@@ -45,9 +68,8 @@ const Sidebar = () => {
             </li>
             <li>
               <Link to="/operation/mytickets" className="sidebar-link fs-4">
-                <i className="fa-solid fa-ticket"></i>&nbsp; My Tickets
+                <i className="fa-solid fa-ticket"></i> &nbsp; My Tickets
               </Link>
-
             </li>
             <li>
               <Link to="/performance" className="sidebar-link fs-4">
@@ -57,7 +79,7 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* Admin Role */}
+        {/* Admin */}
         {role === 'admin' && (
           <>
             <li onClick={toggleUserSubmenu} style={{ cursor: 'pointer' }}>
@@ -66,8 +88,6 @@ const Sidebar = () => {
                 <i className={`fa-solid float-end ${showUserSubmenu ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
               </span>
             </li>
-
-            {/* Nested Submenu under Database > User */}
             {showUserSubmenu && (
               <>
                 <li className="ms-4">
@@ -87,13 +107,11 @@ const Sidebar = () => {
                 </li>
               </>
             )}
-
             <li>
               <Link to="/settings" className="sidebar-link fs-4">
                 <i className="fa-solid fa-gear"></i> &nbsp; Settings
               </Link>
             </li>
-
             <li>
               <Link to="/user-history" className="sidebar-link fs-4">
                 <i className="fa-solid fa-clipboard-list"></i> &nbsp; User Log
