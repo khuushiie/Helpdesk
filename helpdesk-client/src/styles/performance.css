@@ -19,7 +19,7 @@
 }
 
 .operation-card:hover {
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   cursor: pointer;
   transition: 0.3s ease;
 }

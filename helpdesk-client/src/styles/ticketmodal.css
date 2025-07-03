@@ -39,3 +39,11 @@
 .modal-content p {
   margin-bottom: 0.5rem;
 }
+
+.rating-section {
+  text-align: center;
+}
+.rating-section p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}

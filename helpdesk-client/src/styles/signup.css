@@ -15,7 +15,7 @@
   border: 1px solid #000;
 }
 
-.signin-button {
+.signin-button:hover {
   background-color: #00cc33;
   color: white;
   width: 100%;

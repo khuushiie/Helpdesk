@@ -11,7 +11,6 @@ const SettingsPage = () => {
     return (
         <div className="container py-4">
             <h2 className="fw-bold mb-4">Settings</h2>
-
             <div className="card mb-3">
                 <div className="card-header fw-semibold" onClick={() => handleToggle('general')} style={{ cursor: 'pointer' }}>
                     General

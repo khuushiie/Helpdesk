@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 import './styles/layout.css';
@@ -15,10 +14,10 @@ import ForgotPassword from './pages/ForgotPassword';
 import SignUp from './pages/SignUp';
 import OperationDashboard from './pages/OperationDashboard';
 import MyTicketsOperation from './pages/MyTicketsOperation';
-import TicketApproval from './pages/TicketApproval'; // adjust the path if needed
+import TicketApproval from './pages/TicketApproval'; 
 import Performance from './pages/Performance';
 import TechnicalPerformance from './pages/TechnicalPerformance';
-import UserDatabase from './pages/UserDatabase'; // adjust the path if needed
+import UserDatabase from './pages/UserDatabase'; 
 import SettingsPage from './pages/Settings';
 import UserLogHistory from './pages/UserLogHistory';
 
@@ -52,7 +51,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/signup" element={<SignUp/>} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tickets" element={<MyTickets />} />
           <Route path="/profile" element={<UserProfile />} />

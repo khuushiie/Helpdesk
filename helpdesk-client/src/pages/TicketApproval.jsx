@@ -1,52 +1,82 @@
-import React, { useState } from 'react';
-import '../styles/ticketapproval.css';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { getTickets, approveTicket, rejectTicket, updateTicket } from '../utils/tickets';
+import '../styles/ticketapproval.css';
 
 const TicketApproval = () => {
   const [search, setSearch] = useState('');
   const [entries, setEntries] = useState(10);
-  const [tickets, setTickets] = useState([
-    {
-      id: 'T001',
-      subject: 'Network issue',
-      category: 'Network',
-      priority: 'High',
-      date: '2025-07-01',
-      assignedTo: '',
-    },
-    {
-      id: 'T002',
-      subject: 'Email not working',
-      category: 'IT',
-      priority: 'Medium',
-      date: '2025-06-30',
-      assignedTo: '',
-    },
-    {
-      id: 'T003',
-      subject: 'Password reset',
-      category: 'Access',
-      priority: 'Low',
-      date: '2025-06-29',
-      assignedTo: '',
-    },
-  ]);
+  const [tickets, setTickets] = useState([]);
+  const [error, setError] = useState('');
 
-  const handleAssign = (id, value) => {
-    setTickets((prev) =>
-      prev.map((ticket) =>
-        ticket.id === id ? { ...ticket, assignedTo: value } : ticket
-      )
-    );
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const data = await getTickets();
+        setTickets(data.map(ticket => ({
+          _id: ticket._id,
+          id: ticket.ticketId,
+          subject: ticket.subject,
+          category: ticket.category,
+          priority: ticket.priority,
+          date: new Date(ticket.date).toISOString().split('T')[0],
+          assignedTo: ticket.inCharge || '',
+          status: ticket.status,
+        })));
+      } catch (err) {
+        setError('Failed to load tickets');
+        console.error('Fetch tickets error:', err);
+      }
+    };
+    fetchTickets();
+  }, []);
+
+  const handleAssign = async (id, value) => {
+    try {
+      await updateTicket(id, { inCharge: value });
+      setTickets(prev =>
+        prev.map(ticket =>
+          ticket.id === id ? { ...ticket, assignedTo: value } : ticket
+        )
+      );
+    } catch (err) {
+      setError('Failed to assign ticket');
+      console.error('Assign ticket error:', err);
+    }
   };
 
-  const handleApprove = (id) => {
-    alert(`Ticket ${id} approved.`);
+  const handleApprove = async (id) => {
+    try {
+      await approveTicket(id);
+      setTickets(prev =>
+        prev.map(ticket =>
+          ticket.id === id ? { ...ticket, status: 'In Progress' } : ticket
+        )
+      );
+      alert(`Ticket ${id} approved.`);
+    } catch (err) {
+      setError('Failed to approve ticket');
+      console.error('Approve ticket error:', err);
+    }
   };
 
-  const handleReject = (id) => {
-    alert(`Ticket ${id} rejected.`);
+  const handleReject = async (id) => {
+    const rejectionReason = prompt('Enter rejection reason:');
+    if (rejectionReason !== null) {
+      try {
+        await rejectTicket(id, rejectionReason);
+        setTickets(prev =>
+          prev.map(ticket =>
+            ticket.id === id ? { ...ticket, status: 'Rejected' } : ticket
+          )
+        );
+        alert(`Ticket ${id} rejected.`);
+      } catch (err) {
+        setError('Failed to reject ticket');
+        console.error('Reject ticket error:', err);
+      }
+    }
   };
 
   const filteredTickets = tickets.filter((ticket) =>
@@ -56,6 +86,7 @@ const TicketApproval = () => {
   return (
     <div className="ticketlist-container">
       <h2 className="text-center ticketlist-heading">Ticket Approval</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="ticketlist-top d-flex justify-content-between align-items-end flex-wrap gap-3 my-3">
         <div className="d-flex align-items-center gap-2">
@@ -107,13 +138,15 @@ const TicketApproval = () => {
               <td className="d-flex justify-content-center gap-2">
                 <button
                   className="btn btn-sm btn-success"
-                  onClick={() => handleApprove(ticket.id)}
+                  onClick={() => handleApprove(ticket._id)}
+                  disabled={ticket.status !== 'Open'}
                 >
                   <FontAwesomeIcon icon={faCheck} />
                 </button>
                 <button
                   className="btn btn-sm btn-danger"
-                  onClick={() => handleReject(ticket.id)}
+                  onClick={() => handleReject(ticket._id)}
+                  disabled={ticket.status !== 'Open'}
                 >
                   <FontAwesomeIcon icon={faTimes} />
                 </button>
@@ -122,7 +155,7 @@ const TicketApproval = () => {
                 <select
                   className="form-select form-select-sm"
                   value={ticket.assignedTo}
-                  onChange={(e) => handleAssign(ticket.id, e.target.value)}
+                  onChange={(e) => handleAssign(ticket._id, e.target.value)}
                 >
                   <option value="">Select</option>
                   <option value="Anita Joshi">Anita Joshi</option>

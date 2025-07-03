@@ -71,14 +71,13 @@ const Performance = () => {
         </div>
 
         {/* Right Section - Operation Cards */}
-        {/* Right Section - Operation Cards */}
         <div className="col-md-6">
           {operations.map((op, index) => (
             <div className="card mb-4 operation-card" key={index}>
               <div className="card-body d-flex align-items-center">
                 {/* Left - Icon */}
                 <div className="fs-3 text-primary me-3">
-                  <i class="fa-solid fa-user"></i>
+                  <i className="fa-solid fa-user"></i>
                 </div>
 
                 {/* Right - Text + Button */}
