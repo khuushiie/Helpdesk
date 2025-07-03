@@ -66,19 +66,20 @@ const TicketModal = ({ ticket, onClose, onCloseClick, onUpdateClick, showActions
           <p><strong>Priority:</strong> {ticket.priority || 'Medium'}</p>
           <p><strong>Status:</strong> {ticket.status || 'N/A'}</p>
           <p><strong>Attachment:</strong> {ticket.attachment || 'None'}</p>
-          <p><strong>Rating:</strong>
-            <div>
+          <div>
+            <strong>Rating:</strong>
+            <span>
               {[...Array(5)].map((_, i) => (
                 <FontAwesomeIcon
                   key={i}
                   icon={faStar}
                   className={i < rating ? 'text-warning' : 'text-muted'}
-                  style={{ cursor: 'pointer', fontSize: '1.5rem', marginRight: '5px' }}
+                  style={{ cursor: 'pointer', fontSize: '1.5rem', marginLeft: '5px' }}
                   onClick={() => handleRatingClick(i + 1)}
                 />
               ))}
-            </div>
-          </p>
+            </span>
+          </div>
         </div>
         {showActions && (
           <div className="modal-actions d-flex justify-content-between mt-4">
