@@ -1,0 +1,43 @@
+.dashboard-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Changed */
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+
+.card-custom {
+  padding: 1.25rem;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-total {
+  background: #007bff;
+}
+
+.card-open {
+  background: #ffc107;
+}
+
+.card-closed {
+  background: #28a745;
+}
+
+.card-pending {
+  background: #dc3545;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  opacity: 0.2;
+}

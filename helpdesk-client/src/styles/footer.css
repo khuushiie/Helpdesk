@@ -1,0 +1,9 @@
+.footer-custom {
+  height: 50px;
+  background-color: #55D6C2;
+  line-height: 50px;
+  font-weight: 500;
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+

@@ -1,0 +1,29 @@
+.profile-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #6c757d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+}
+
+.rating-stars .fa-star {
+  margin-right: 4px;
+}
+
+.rating-stars .text-secondary {
+  color: #dee2e6 !important; 
+}
+
+.operation-card:hover {
+  /* background-color: #f8f9fa; */
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.details{
+    text-decoration: none;
+}
